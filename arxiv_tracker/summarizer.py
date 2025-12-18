@@ -109,13 +109,14 @@ def build_two_stage_summary(item: Dict[str, Any], mode: str, lang: str, scope: s
         api_key = (cfg.get("api_key") or os.getenv(cfg.get("api_key_env") or "OPENAI_API_KEY", ""))
         if api_key:
             try:
-                data = call_llm_bilingual_summary(
+                data = call_llm_two_stage(
                     item=item,
+                    lang="zh",
+                    scope="both",
                     base_url=cfg.get("base_url", ""),
                     model=cfg.get("model", ""),
                     api_key=api_key,
-                    system_prompt_zh=cfg.get("system_prompt_zh", ""),
-                    system_prompt_en=cfg.get("system_prompt_en", "")
+                    system_prompt=cfg.get("system_prompt_zh", "")
                 )
                 return {"digest_en": data.get("digest_en",""), "digest_zh": data.get("digest_zh",""), "tldr":"", "full_md":""}
             except Exception:

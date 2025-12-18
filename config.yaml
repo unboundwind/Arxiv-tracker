@@ -3,15 +3,17 @@ keywords:
   - "open-vocabulary"
   - "open vocabulary segmentation"
   - "vision language model"
-  - "training free"
+  - "RLVR"
+  - "memory"
+  - "context"
 
 # exclude_keywords: # 选择排除的关键词
 #   - "Large Language Model"
 #   - "LLM"
-  
-logic: "OR"                 # 组间逻辑：categories 与 keywords 间 AND/OR
+
+logic: "OR" # 组间逻辑：categories 与 keywords 间 AND/OR
 max_results: 30
-sort_by: "lastUpdatedDate"  # 还可以是submittedDate 建议改成lastUpdatedDate按更新时间排，能捞到v2/v3的“新增”
+sort_by: "lastUpdatedDate" # 还可以是submittedDate 建议改成lastUpdatedDate按更新时间排，能捞到v2/v3的“新增”
 sort_order: "descending"
 
 # zh / en / both
@@ -31,16 +33,16 @@ email:
   smtp_server: "smtp.qq.com"
   smtp_port: 465
   smtp_pass_env: "SMTP_PASS"
-  tls: "ssl"  # auto / ssl / starttls
-  debug: false     # true 可打印 SMTP 调试日志
-  detail: "full"  # simple / full
+  tls: "ssl" # auto / ssl / starttls
+  debug: false # true 可打印 SMTP 调试日志
+  detail: "full" # simple / full
   max_items: 30
-  attach_md: true  # 是否开启Markdown附件
-  attach_pdf: false  # 是否开启PDF附件
+  attach_md: true # 是否开启Markdown附件
+  attach_pdf: false # 是否开启PDF附件
 
 # —— LLM（DeepSeek/OpenAI 兼容） ——
 llm:
-  provider: "openai-compatible"     # 兼容 OpenAI SDK 的服务
+  provider: "openai-compatible" # 兼容 OpenAI SDK 的服务
   # 硅基流动的版本
   base_url: "https://api.siliconflow.cn"
   model: "Qwen/Qwen3-8B"
@@ -49,7 +51,6 @@ llm:
   # base_url: "https://api.deepseek.com"
   # model: "deepseek-chat"
   # api_key_env: "DS_API_KEY"
-  
 
   system_prompt_en: |
     You are a senior paper-reading assistant. Based on the given metadata and abstract,
@@ -63,26 +64,26 @@ llm:
 
 # —— 中文翻译设置（用 LLM 翻译 title/summary） ——
 translate:
-  enabled: true         # 是否启用
-  lang: "zh"            # 目前只需中文；也可扩展 en/ja 等
-  fields: ["title", "summary"]   # 可扩：["title","summary","comments"]
+  enabled: true # 是否启用
+  lang: "zh" # 目前只需中文；也可扩展 en/ja 等
+  fields: ["title", "summary"] # 可扩：["title","summary","comments"]
 
 site:
   enabled: true
-  dir: "docs" 
+  dir: "docs"
   title: "arXiv 论文速递"
-  keep_runs: 1024         # 历史保留期（按页面份数）
-  theme: "light"        # "light" | "dark" | "auto"
-  accent: "#2563eb"     # 主题色（可自定义）
+  keep_runs: 1024 # 历史保留期（按页面份数）
+  theme: "light" # "light" | "dark" | "auto"
+  accent: "#2563eb" # 主题色（可自定义）
 
 freshness:
-  since_days: 30           # 只看最近 N 天内新提交/更新（1=近24h）
-  unique_only: true       # 开启跨天去重（见过的 arXiv ID 不再重复发）
-  state_path: ".state/seen.json"  # 去重状态文件（会随 docs 一起提交保存）
+  since_days: 30 # 只看最近 N 天内新提交/更新（1=近24h）
+  unique_only: true # 开启跨天去重（见过的 arXiv ID 不再重复发）
+  state_path: ".state/seen.json" # 去重状态文件（会随 docs 一起提交保存）
   fallback_when_empty: false # 当今天无新增时，是否回退展示最近的Top若干（建议false）
 
 scrape:
-  html: true               # 先用 HTML 页抓链接
-  pdf_if_missing: true     # 若没抓到 code，再去扫 PDF 头部兜底
-  pdf_first_page: false    # （可保留为 false；若你想“不管有没有都扫 PDF”，设 true）
+  html: true # 先用 HTML 页抓链接
+  pdf_if_missing: true # 若没抓到 code，再去扫 PDF 头部兜底
+  pdf_first_page: false # （可保留为 false；若你想“不管有没有都扫 PDF”，设 true）
   timeout: 10
